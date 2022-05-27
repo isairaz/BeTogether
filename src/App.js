@@ -3,7 +3,7 @@ import Home from './components/Home'
 import Login from './components/Login'
 import Register from './components/Register'
 import Exercice from './components/Exercice.js'
-import Project from './components/Project'
+import DND from './components/DND'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
@@ -22,7 +22,7 @@ function App() {
             </Route>
             <Route exact path="/Exercice" element={<Exercice />}>
             </Route>
-            <Route exact path="/Project" element={<Project />}>
+            <Route exact path="/DND" element={<DND />}>
             </Route>
           </Routes>
       </BrowserRouter>
