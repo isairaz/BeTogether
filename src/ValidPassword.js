@@ -14,8 +14,8 @@ const ValidPassword = (event) => {
         passwordConfirmChangeColor.style.backgroundColor = "white"
     }
     else {
-        passwordChangeColor.style.backgroundColor = "#ff7979"
-        passwordConfirmChangeColor.style.backgroundColor = "#ff7979"
+        passwordChangeColor.style.backgroundColor = "#EA2027"
+        passwordConfirmChangeColor.style.backgroundColor = "#EA2027"
     }
 }
 
