@@ -8,7 +8,7 @@ const Login = () => {
             
         
             
-            <div class="fadeIn first">
+            <div class="fadeIn first logTogether">
                 <h2>BeTogether</h2>
             </div>
         

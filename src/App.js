@@ -4,6 +4,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Exercice from './components/Exercice.js'
 import DND from './components/DND'
+import CreateP from './components/CreateP';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
@@ -23,6 +24,8 @@ function App() {
             <Route exact path="/Exercice" element={<Exercice />}>
             </Route>
             <Route exact path="/DND" element={<DND />}>
+            </Route>
+            <Route exact path="/CreateP" element={<CreateP />}>
             </Route>
           </Routes>
       </BrowserRouter>

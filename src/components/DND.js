@@ -1,122 +1,83 @@
-import React, { useState } from 'react';
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import data from './data';
+import { DragDropContext, Droppable,Draggable } from 'react-beautiful-dnd';
+import { useState } from 'react';
+import { Container, Row,Card } from "reactstrap";
 
-const MovableItem = ({name,setItems}) => {
-    const changeItemColumn = (currentItem, columnName) =>{
-        setItems((prevState) =>{
-            return prevState.map(e => {
-                return {
-                    ...e,
-                    column: e.name === currentItem.name ? columnName : e.column,
-                }
-            })
-        });
+
+
+function DND() {
+    const [items, setItems] = useState(data)
+
+
+    
+
+    const dataMap = items.map((el, i) => {
+      return(
+        
+          
+        <Draggable  key={el.id} draggableId={el.id.toString()} index={i}>
+          {(provided) =>{
+            return(
+                
+              
+              <div className='Colone'
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                ref={provided.innerRef}
+              >
+                  <p>{i + 1}</p>
+
+                        <Card style={{width:'100%' , padding:50,margin:20 }  }
+                        >
+                            {el.name}
+                          </Card>
+
+              </div>
+             
+            )
+          }}
+
+        </Draggable>
+      )
+    })
+
+    const handleOnDragEnd = (res) => {
+      const itemsCopy = [...items]
+      const [reorderItem] = itemsCopy.splice(res.source.index, 1)
+      itemsCopy.splice(res.destination.index, 0, reorderItem)
+      setItems(itemsCopy)
     }
 
-
-
-    const [{isDragging}, drag] = useDrag({
-      type: 'Our first type',
-        item: {name: 'Any custom name' },
-        end: (item, monitor) => {
-            const dropResult = monitor.getDropResult();
-            if(dropResult && dropResult.name === 'Column 1'){
-                changeItemColumn({item, column:'Column 1'})
-            } else {
-                changeItemColumn({item, column: 'Column 2'} )
-            }
-        },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-        }),
-    });
-
-    const opacity = isDragging ? 0.4 : 1;
-
-    return (
-
-        <>
-        <div ref={drag} className='movable-item' style={{opacity}}>
-            {name}
-
-        </div>
-
-      
-        </>
-    )
-}
-
-const Column = ({children, className, title}) => {
-    const [, drop] = useDrop({
-        accept: 'Our first type',
-        drop: () => ({name: title}),
-    });
-
-    return (
-        <div ref={drop} className={className}>
-            {title}
-            {children}
-        </div>
-    )
-}
-
-export const DND = () => {
-
-    const [items,setItems] = useState({initialState:  [
-        {id: 1,name: 'Item 1', column: 'Column 1'},
-        {id: 2,name: 'Item 2',column: 'Column 1'},
-        {id: 3,name: 'Item 3', column: 'Column 1'}
-    ]});
-
-    const returnItemsForColumn = (columnName) => {
-        return items
-            .filter((item) => item.column === columnName)
-            .map((item, index) => (
-                <MovableItem key={item.id}
-                             name={item.name}
-                             currentColumnName={item.column}
-                             setItems={setItems}
-                             index={index}
-                            
-                />
-            ))
-    }
-   
-
-        return (
-            <div className='container'>
-                <DndProvider backend={HTML5Backend}>
-                    <Column title='Column 1' classeName='column first-column'>
-                    {returnItemsForColumn({ columnName: 'Column 1'})}
-                    </Column>
-                    
-                    <Column title='Column 2' className='column second-column'>
-                        {returnItemsForColumn( {columnName: 'Column 2'})}
-                    </Column>
-                </DndProvider>
+    return(
+      <div className='App'>
+        <Container>
+        <div className="fadeIn first beTogetherDnd">
+                <h2>BeTogether</h2>
+                
             </div>
-        )
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId='items'>
+              {(provided)=>{
+                return(
+                    
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    {dataMap}
+                    {provided.placeholder}
+                    <button className="btn btn-success">Submit</button>
+                  </div>
+                  
+                )
+              }}
+            </Droppable>
+          </DragDropContext>
+          
+        </Container>
+      </div>
+    )
 
 
 
-    // const [isFirstColumn, setIsFirstColumn] = useState(true);
 
-    // const Item = <MovableItem setIsFirstColumn={setIsFirstColumn}/>;
-
-    // return (
-    //     <div className="container">
-    //         {/* Wrap components that will be "draggable" and "droppable" */}
-    //         <DndProvider backend={HTML5Backend}>
-    //             <Column title='All projects' className='column first-column'>
-    //                 {isFirstColumn && Item}
-    //             </Column>
-    //             <Column title='Your favorite projects' className='column second-column'>
-    //                 {!isFirstColumn && Item}
-    //             </Column>
-    //         </DndProvider>
-    //     </div>
-    // );
-}
+  }
 
 export default DND;

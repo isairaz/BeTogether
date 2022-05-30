@@ -1,7 +1,7 @@
 
 const postUser = () => {
 	
-	alert("hello")
+	
 		fetch("https://be-together.herokuapp.com/user", {
 	
 
@@ -11,6 +11,7 @@ const postUser = () => {
 			body: JSON.stringify({
 				"password": document.querySelector('.password-input').value,
 				"email": document.querySelector('#email').value,
+				"username": document.querySelector('.first-name-input').value,
 				"first_name": document.querySelector('.first-name-input').value,
 				"last_name": document.querySelector('.last-name-input').value,
 				"is_coach": false

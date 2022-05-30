@@ -23,7 +23,7 @@ const Register = () => {
                 <input onKeyUp={ValidEmail} type="email" id="email" class="fadeIn third"  placeholder="Email"></input>
                 <input onKeyUp={ValidPassword} class="password-input" type="password" placeholder="Password"></input>
                 <input onKeyUp={ValidPassword} class="password-input" type="password" className ="confirm-password-input" placeholder="Confirm Password"></input>
-                <a onClick={postUser} class="isDisabled" href="/Login" id="logIn">Create Account</a>
+                <a onClick={postUser}   id="logIn">Create Account</a>
             </form>
 
 
