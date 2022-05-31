@@ -40,14 +40,18 @@ function App() {
           <Routes>
             <Route exact path="/" element={!userData.isLoggedIn ? <Navigate replace to='/login' /> : <Navigate replace to="/home" />}>
             </Route>
+
             <Route exact path="/login" element={!userData.isLoggedIn ? <Login /> : <Navigate replace to="/home" />} />
             <Route exact path="/Home" element={!userData.isLoggedIn ? <Navigate replace to='/login' /> : <Home />}>
+
+            <Route exact path="/DND" element={<DND />}>
+            </Route>
+            <Route exact path="/Home" element={<Home />}>
+
             </Route>
             <Route exact path="/Register" element={<Register />}>
             </Route>
             <Route exact path="/Exercice" element={<Exercice />}>
-            </Route>
-            <Route exact path="/DND" element={<DND />}>
             </Route>
             <Route exact path="/CreateP" element={<CreateP />}>
             </Route>
